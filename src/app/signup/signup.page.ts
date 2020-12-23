@@ -3,6 +3,7 @@ import { FormBuilder, Validators, FormGroup, NgForm, FormControl, } from '@angul
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { MustMatch } from '../_helpers/mustMatch.validator';
+import { isValidDate } from '../_helpers/date.validator';
 
 @Component({
   selector: 'app-signup',
@@ -12,14 +13,19 @@ import { MustMatch } from '../_helpers/mustMatch.validator';
 export class SignupPage implements OnInit {
   isReadyToSend = false;
   SignupForm: FormGroup;
+  fechaActual = new Date();
+  fechaTotal= '0000-00-00';
   constructor(
     private router: Router,
     private toastCtrl: ToastController,
     private formBuilder: FormBuilder,
   ) {
+    this.fechaTotal = this.fechaActual.getFullYear()+'-'+(this.fechaActual.getMonth() + 1)+'-'+this.fechaActual.getDate();
+    console.log(this.fechaTotal);
     this.SignupForm = formBuilder.group({
       nombre: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(50)]],
       apellido: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(50)]],
+      edad: [this.fechaTotal, [Validators.required, isValidDate ]],
       nacionalidad: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(1)]],
       cedula: ['', [Validators.required, Validators.min(10000000), Validators.max(50000000)]],
       email: new FormControl('', [Validators.required, Validators.email, Validators.minLength(4), Validators.maxLength(50)]),

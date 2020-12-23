@@ -34,6 +34,18 @@
         </p>
       </ion-text>
 
+      <ion-item class="ion-margin-bottom">
+        <ion-input max="1950-01-01"  [max]="fechaTotal" step="1" type="date" placeholder="Nombre" formControlName="edad"></ion-input>
+      </ion-item>
+      <ion-text color="danger">
+        <p *ngIf="SignupForm.controls.edad.errors?.required && (SignupForm.controls.edad.touched || SignupForm.controls.nombre.dirty)" class="ion-padding-start">
+          El campo es obligatorio.
+        </p>
+        <p *ngIf="SignupForm.controls.edad.errors?.isValidDate && (SignupForm.controls.edad.touched || SignupForm.controls.nombre.dirty)" class="ion-padding-start">
+          No es una fecha
+        </p>
+      </ion-text>
+
       <ion-row>
         <ion-col size="5">
           <ion-item>
