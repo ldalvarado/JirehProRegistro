@@ -1,0 +1,43 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="primary">
+        <ion-back-button defaultHref="folder/Inbox"></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/signup">Registro</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="header">
+    <img src="assets/logo.jpg" />
+  </div>
+
+  <form id="form" [formGroup]="LoginForm" (ngSubmit)="guardarDatos()">
+    <ion-item class="ion-margin-bottom">
+      <ion-input type="text" placeholder="Email" formControlName="email"></ion-input>
+    </ion-item>
+    <div class="ion-margin-bottom">
+      <p style="color:red;"  *ngIf="LoginForm.controls.email.errors?.required && (LoginForm.touched || LoginForm.dirty)">* El email es obligatorio</p>
+      <p style="color:red;" *ngIf="LoginForm.controls.email.errors?.email && (LoginForm.touched || LoginForm.dirty)">* No es un email</p>
+      <p style="color:red;" *ngIf="LoginForm.controls.email.errors?.minlength && (LoginForm.touched || LoginForm.dirty)">* El email tiene que tener al menos 4 caracteres.</p>
+      <p style="color:red;" *ngIf="LoginForm.controls.email.errors?.maxLength && (LoginForm.touched || LoginForm.dirty)">* El email tiene que tener maximo 50 caracteres.</p>
+    </div>
+    
+
+    <ion-item class="ion-margin-bottom">
+      <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
+    </ion-item>
+    <div class="ion-margin-bottom">
+      <p style="color:red;"  *ngIf="LoginForm.controls.password.errors?.required && (LoginForm.touched || LoginForm.dirty)">* El password es obligatorio</p>
+      <p style="color:red;" *ngIf="LoginForm.controls.password.errors?.minlength && (LoginForm.touched || LoginForm.dirty)">* El password tiene que tener al menos 4 caracteres.</p>
+      <p style="color:red;" *ngIf="LoginForm.controls.password.errors?.maxLength && (LoginForm.touched || LoginForm.dirty)">* El password tiene que tener maximo 50 caracteres.</p>
+    </div>
+    <!--<app-input formControlName="email" placeholder="Email"></app-input>
+    <app-input formControlName="password" type="password" placeholder="Password"></app-input>-->
+    <ion-button type="submit" expand="block" shape="round">Login</ion-button>
+  </form>
+</ion-content>
